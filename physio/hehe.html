@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysioPlus - Book Your Physiotherapy Session</title>
+    <style>
+        /* Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: #333;
+            background-color: #f9f9f9;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Decorative Elements */
+        .shape {
+            position: absolute;
+            z-index: -1;
+        }
+
+        .shape-1 {
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 80vh;
+            background-color: #FF6B00;
+            border-radius: 0 0 0 50%;
+        }
+
+        .shape-2 {
+            bottom: 30%;
+            left: -10%;
+            width: 25%;
+            height: 40vh;
+            background-color: #FF8A3D;
+            border-radius: 50%;
+        }
+
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .icon {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+
+        .icon-1 { top: 15%; left: 10%; }
+        .icon-2 { top: 25%; right: 15%; }
+        .icon-3 { top: 60%; left: 20%; }
+        .icon-4 { bottom: 20%; right: 25%; }
+        .icon-5 { bottom: 40%; left: 30%; }
+
+        .triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 25px solid rgba(255, 255, 255, 0.2);
+            opacity: 0.4;
+        }
+
+        .triangle-1 { top: 30%; right: 35%; }
+        .triangle-2 { top: 70%; left: 15%; }
+        .triangle-3 { bottom: 30%; right: 10%; }
+
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: #FF6B00;
+            background: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #FFD700;
+        }
+
+        .login-btn {
+            background-color: #1c1616;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #FFD700;
+            color: #FF6B00;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 50px 0;
+        }
+
+        .hero-content {
+            width: 50%;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: white;
+            color: #FF6B00;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+        }
+
+        .cta-btn:hover {
+            background-color: #FFD700;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-image {
+            width: 50%;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: white;
+            position: relative;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-heading h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .section-heading p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-image {
+            height: 200px;
+            background-color: #f5f5f5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 30px;
+        }
+
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #FF6B00;
+        }
+
+        .service-content p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .service-btn {
+            display: inline-block;
+            color: #FF6B00;
+            font-weight: 600;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .service-btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #FF6B00;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .service-btn:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Booking Section */
+        .booking {
+            padding: 100px 0;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+
+        .booking-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .booking-content {
+            width: 45%;
+        }
+
+        .booking-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .booking-content p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .booking-form {
+            width: 50%;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #FF6B00;
+            outline: none;
+        }
+
+        .submit-btn {
+            background-color: #FF6B00;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #E05A00;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background-color: white;
+            position: relative;
+        }
+
+        .testimonials-slider {
+            margin-top: 50px;
+            display: flex;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .testimonial-card {
+            min-width: 350px;
+            margin-right: 30px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            background-color: #ddd;
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-content p {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-rating {
+            color: #FFD700;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pricing-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card.featured {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #FFD700;
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-header {
+            background-color: #FF6B00;
+            padding: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .pricing-card.basic .pricing-header {
+            background-color: #FF8A3D;
+        }
+
+        .pricing-card.featured .pricing-header {
+            background-color: #FF6B00;
+        }
+
+        .pricing-card.premium .pricing-header {
+            background-color: #E05A00;
+        }
+
+        .pricing-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .pricing-content {
+            padding: 30px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            color: #666;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            color: #FF6B00;
+            font-weight: 700;
+        }
+
+        .pricing-btn {
+            display: inline-block;
+            background-color: #FF6B00;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+        }
+
+        .pricing-card.basic .pricing-btn {
+            background-color: #FF8A3D;
+        }
+
+        .pricing-card.featured .pricing-btn {
+            background-color: #FF6B00;
+        }
+
+        .pricing-card.premium .pricing-btn {
+            background-color: #E05A00;
+        }
+
+        .pricing-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo span {
+            color: #FF6B00;
+            background: white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #FF6B00;
+            transform: translateY(-3px);
+        }
+
+        .footer-heading {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: #FF6B00;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: #FF6B00;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 50px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .services-grid, .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 0;
+            }
+            
+            .hero-content, .hero-image, .booking-content, .booking-form {
+                width: 100%;
+            }
+            
+            .hero-content {
+                margin-bottom: 40px;
+            }
+            
+            .booking-container {
+                flex-direction: column;
+            }
+            
+            .booking-content {
+                margin-bottom: 40px;
+                text-align: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .services-grid, .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* Simple calendar layout for booking feature */
+        .calendar {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .calendar-header span {
+            text-align: center;
+            font-weight: 600;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day:hover {
+            background-color: #FF6B00;
+            color: white;
+        }
+
+        .calendar-day.current {
+            background-color: #FF6B00;
+            color: white;
+        }
+
+        .calendar-day.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .calendar-day.disabled:hover {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .time-slots {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .time-slots.active {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .time-slot {
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-slot:hover {
+            background-color: #FF6B00;
+            color: white;
+        }
+
+        .time-slot.selected {
+            background-color: #FF6B00;
+            color: white;
+        }
+
+        .time-slot.booked {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .time-slot.booked:hover {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative Shapes -->
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="floating-icons">
+        <div class="icon icon-1"></div>
+        <div class="icon icon-2"></div>
+        <div class="icon icon-3"></div>
+        <div class="icon icon-4"></div>
+        <div class="icon icon-5"></div>
+        <div class="triangle triangle-1"></div>
+        <div class="triangle triangle-2"></div>
+        <div class="triangle triangle-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><span>P</span>PhysioPlus</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#booking">Booking</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#login" class="login-btn">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 style="color:#1c1616;">Physiotherapy Services at Your Fingertips</h1>
+                <p style="color:#1c1616;">your appointment online and start your journey to recovery today with our team of certified physiotherapists.</p>
+                <a href="#booking" class="cta-btn">Book Appointment</a>
+                <a href="#services" class="cta-btn" style="background-color: transparent; color: rgb(22, 21, 21); border: 2px solid white;">Our Services</a>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Our Specialized Services</h2>
+                <p style="color:#1c1616;">offer a comprehensive range of physiotherapy treatments tailored to meet your specific needs.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/api/placeholder/400/320" alt="Orthopedic Rehab">
+                    </div>
+                    <div class="service-content">
+                        <h3>Orthopedic Rehabilitation</h3>
+                        <p>Specialized treatment for injuries and conditions affecting bones, joints, muscles, and connective tissues.</p>
+                        <a href="#booking" class="service-btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/api/placeholder/400/320" alt="Sports Rehab">
+                    </div>
+                    <div class="service-content">
+                        <h3>Sports Rehabilitation</h3>
+                        <p>Custom recovery programs for athletes focusing on injury prevention and performance enhancement.</p>
+                        <a href="#booking" class="service-btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/api/placeholder/400/320" alt="Neurological Rehab">
+                    </div>
+                    <div class="service-content">
+                        <h3>Neurological Rehabilitation</h3>
+                        <p>Treatment for patients with neurological disorders like stroke, Parkinson's, and multiple sclerosis.</p>
+                        <a href="#booking" class="service-btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/api/placeholder/400/320" alt="Manual Therapy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Manual Therapy</h3>
+                        <p>Hands-on techniques including massage, joint mobilization, and manipulation to relieve pain.</p>
+                        <a href="#booking" class="service-btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/api/placeholder/400/320" alt="Pediatric Physio">
+                    </div>
+                    <div class="service-content">
+                        <h3>Pediatric Physiotherapy</h3>
+                        <p>Specialized treatments for children with developmental delays, injuries, or mobility issues.</p>
+                        <a href="#booking" class="service-btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/api/placeholder/400/320" alt="Geriatric Physio">
+                    </div>
+                    <div class="service-content">
+                        <h3>Geriatric Physiotherapy</h3>
+                        <p>Tailored programs for older adults focusing on balance, mobility, and fall prevention.</p>
+                        <a href="#booking" class="service-btn">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="booking" id="booking">
+        <div class="container">
+            <div class="booking-container">
+                <div class="booking-content">
+                    <h2>Book Your Appointment</h2>
+                    <p>Select your preferred service, choose a date and time that works for you, and we'll take care of the rest. Our team will confirm your appointment within 24 hours.</p>
+                    <p>For urgent appointments or special requirements, please contact us directly at <strong>(123) 456-7890</strong>.</p>
+                </div>
+                <div class="booking-form">
+                    <form id="appointment-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Your email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Your phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Select Service</label>
+                            <select id="service" required>
+                                <option value="" disabled selected>Choose a service</option>
+                                <option value="orthopedic">Orthopedic Rehabilitation</option>
+                                <option value="sports">Sports Rehabilitation</option>
+                                <option value="neurological">Neurological Rehabilitation</option>
+                                <option value="manual">Manual Therapy</option>
+                                <option value="pediatric">Pediatric Physiotherapy</option>
+                                <option value="geriatric">Geriatric Physiotherapy</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Select Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Available Time Slots</label>
+                            <div class="time-slots active">
+                                <div class
